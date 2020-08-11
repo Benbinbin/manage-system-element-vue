@@ -1,5 +1,6 @@
 export default {
   state: {
+    asideCollapse: false,
     menu: {},
     currentMenu: null
   },
@@ -10,6 +11,9 @@ export default {
       } else {
         state.currentMenu = null;
       }
+    },
+    toggleAsideMenu(state) {
+      state.asideCollapse = !state.asideCollapse;
     }
   },
   actions: {},

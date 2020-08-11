@@ -1,31 +1,40 @@
 <template>
   <el-menu
-    default-active="2"
-    class="el-menu-vertical-demo"
-    background-color="#33aef0"
+    :default-active=" current ? current.path : '/'"
+    class="el-menu-vertical"
+    background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
+    router
+    :collapse="asideCollapse"
   >
-    <el-menu-item :index="item.path" v-for="(item, index) in noChildren" :key="index" @click="clickMenu(item)">
+    <el-menu-item
+      :index="item.path"
+      v-for="(item) in noChildren"
+      :key="item.path"
+      @click="clickMenu(item)"
+    >
       <i :class="item.icon" style="color: #fff"></i>
       <span slot="title">{{ item.label }}</span>
     </el-menu-item>
-    <el-submenu :index="item.path" v-for="(item, index) in hasChildren" :key="index">
+    <el-submenu :index="item.path" v-for="(item) in hasChildren" :key="item.path">
       <template slot="title">
         <i :class="item.icon" style="color: #fff"></i>
         <span>{{ item.label }}</span>
       </template>
-        <el-menu-item
-          :index="subitem.path"
-          v-for="(subitem, subindex) in item.children"
-          :key="subindex"
-          @click="clickMenu(subitem)"
-        >{{ subitem.label }}</el-menu-item>
+      <el-menu-item
+        :index="subitem.path"
+        v-for="(subitem, subindex) in item.children"
+        :key="subindex"
+        @click="clickMenu(subitem)"
+      >{{ subitem.label }}</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -60,7 +69,7 @@ export default {
               icon: "el-icon-setting",
             },
             {
-              name: 'logout',
+              name: "logout",
               path: "/logout",
               label: "登出",
               icon: "el-icon-setting",
@@ -77,12 +86,15 @@ export default {
     hasChildren() {
       return this.asideMenu.filter((item) => item.children);
     },
+    ...mapState({
+      current: (state) => state.tab.currentMenu,
+      asideCollapse: (state) => state.tab.asideCollapse,
+    }),
   },
   methods: {
     clickMenu(item) {
-      this.$store.commit('selectMenu', item);
-
-    }
+      this.$store.commit("selectMenu", item);
+    },
   },
 };
 </script>
@@ -91,6 +103,8 @@ export default {
 .el-menu {
   height: 100%;
   border: none;
-
+}
+.el-menu-vertical:not(.el-menu--collapse) {
+  width: 200px;
 }
 </style>

@@ -1,14 +1,14 @@
 <template>
   <header>
     <div class="left-content">
-      <el-button icon="el-icon-menu" circle size="mini"></el-button>
+      <el-button icon="el-icon-menu" circle size="mini" @click="toggleAsideMenu"></el-button>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item :to="current.path" v-if="current">{{current.label}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="right-content">
-      <el-dropdown trigger="click" size="mini">
+      <el-dropdown trigger="click">
         <span class="el-dropdown-link">
           <img :src="userImg" alt class="user" />
         </span>
@@ -34,6 +34,11 @@ export default {
     ...mapState({
       current: (state) => state.tab.currentMenu,
     }),
+  },
+  methods: {
+    toggleAsideMenu() {
+      this.$store.commit('toggleAsideMenu');
+    }
   },
 };
 </script>
@@ -64,10 +69,11 @@ header {
 </style>
 
 <style lang="scss">
-.el-breadcrumb__inner a,
-.el-breadcrumb__inner.is-link,
-.el-breadcrumb__item:last-child .el-breadcrumb__inner {
+.el-breadcrumb__inner.is-link {
+  color: #bbb;
+  cursor: pointer;
+}
+.el-breadcrumb__item:last-child .el-breadcrumb__inner.is-link {
   color: #fff;
-  cursor: pointer !important;
 }
 </style>

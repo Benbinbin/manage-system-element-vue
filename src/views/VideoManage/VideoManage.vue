@@ -1,0 +1,15 @@
+<template>
+    <div>
+        Video Manage
+    </div>
+</template>
+
+<script>
+    export default {
+
+    }
+</script>
+
+<style lang="scss" scoped>
+
+</style>
