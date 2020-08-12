@@ -8,6 +8,10 @@
     router
     :collapse="asideCollapse"
   >
+    <h3 v-show="!asideCollapse">后台管理系统</h3>
+    <h3 v-show="asideCollapse" @click="toggleMenu">
+      <i class="el-icon-arrow-right"></i>
+    </h3>
     <el-menu-item
       :index="item.path"
       v-for="(item) in noChildren"
@@ -95,6 +99,9 @@ export default {
     clickMenu(item) {
       this.$store.commit("selectMenu", item);
     },
+    toggleMenu() {
+      this.$store.commit("toggleAsideMenu");
+    },
   },
 };
 </script>
@@ -103,6 +110,15 @@ export default {
 .el-menu {
   height: 100%;
   border: none;
+  h3 {
+    color: #fff;
+    text-align: center;
+    font-size: 1.3rem;
+    line-height: 4rem;
+    i {
+      cursor: pointer;
+    }
+  }
 }
 .el-menu-vertical:not(.el-menu--collapse) {
   width: 200px;

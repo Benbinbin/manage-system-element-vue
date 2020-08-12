@@ -161,7 +161,7 @@ export default {
         // 基于键名遍历数据构造 series 对象数组
         keyArray2.forEach((key) => {
           this.echartsData.user.series.push({
-            name: key,
+            name: key === 'new' ? '新增用户' : '活跃用户',
             data: user.map((item) => item[key]),
             type: "bar",
           });
@@ -176,7 +176,6 @@ export default {
             data: video,
           }
         ];
-        console.log(this.echartsData.video)
       });
     },
   },

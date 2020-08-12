@@ -1,0 +1,10 @@
+.manage {
+    height: 90%;
+    padding-bottom: 2rem;
+    overflow: hidden;
+    .manage-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}

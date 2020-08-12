@@ -25,23 +25,74 @@ export default {
     return {
       chart: null,
       axisOption: {
+        grid: {
+          left: "20%",
+        },
         legend: {},
-        tooltip: {},
-        xAxis: [
-          {
-            type: "category",
-            data: [],
+        tooltip: {
+          trigger: "axis",
+        },
+        xAxis: {
+          type: "category",
+          data: [],
+          axisLine: {
+            lineStyle: {
+              color: "#17b3a3",
+            },
           },
-        ],
+          axisLabel: {
+            color: "#333",
+            rotate: -45,
+          },
+        },
+
         yAxis: [
           {
             type: "value",
+            axisLine: {
+              lineStyle: {
+                color: "#17b3a3",
+              },
+            },
           },
+        ],
+        color: [
+          "#2ec7c9",
+          "#b6a2de",
+          "#5ab1ef",
+          "#ffb980",
+          "#d87a80",
+          "#8d98b3",
+          "#e5cf0d",
+          "#97b552",
+          "#95706d",
+          "#dc69aa",
+          "#07a2a4",
+          "#9a7fd1",
+          "#588dd5",
+          "#f5994e",
+          "#c05050",
+          "#59678c",
+          "#c9ab00",
+          "#7eb00a",
+          "#6f5553",
+          "#c14089",
         ],
         series: [],
       },
       normalOption: {
-        tooltip: {},
+        tooltip: {
+          trigger: "item",
+        },
+        color: [
+          "#0f78f4",
+          "#dd536b",
+          "#9462e5",
+          "#a6a6a6",
+          "#e1bb22",
+          "#39c362",
+          "#3ed1cf",
+        ],
         series: [],
       },
     };
@@ -50,6 +101,9 @@ export default {
     options() {
       return this.isAxisChart ? this.axisOption : this.normalOption;
     },
+    isCollapse() {
+      return this.$store.state.tab.asideCollapse;
+    },
   },
   watch: {
     chartData: {
@@ -57,6 +111,11 @@ export default {
         this.initChart();
       },
       deep: true,
+    },
+    isCollapse() {
+      setTimeout(() => {
+        this.resizeChart();
+      }, 300);
     },
   },
   methods: {
@@ -77,6 +136,15 @@ export default {
         this.normalOption.series = this.chartData.series;
       }
     },
+    resizeChart() {
+      this.chart ? this.chart.resize() : "";
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.resizeChart);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.resizeChart);
   },
 };
 </script>
