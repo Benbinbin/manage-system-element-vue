@@ -1,6 +1,6 @@
 <template>
     <div>
-        Video Manage
+        Test page one.
     </div>
 </template>
 

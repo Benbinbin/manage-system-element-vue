@@ -1,6 +1,8 @@
 import Mock from 'mockjs';
 import homeApi from './home';
 import userApi from './user';
+import permissionApi from './permission'
+
 // 设置请求延时响应 200~2000ms
 Mock.setup({
   timeout: '200-2000'
@@ -17,3 +19,6 @@ Mock.mock(/\/user\/batchremove/, 'get', userApi.batchremove)
 Mock.mock(/\/user\/add/, 'post', userApi.createUser)
 Mock.mock(/\/user\/edit/, 'post', userApi.updateUser)
 Mock.mock(/\/home\/getData/, 'get', homeApi.getStatisticalData)
+
+// 权限相关
+Mock.mock(/\/permission\/getMenu/, 'post', permissionApi.getMenu)
