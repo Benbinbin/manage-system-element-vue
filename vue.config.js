@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: '/manage-system-element-vue/',
   devServer: {
     port: 3030,
     open: true,
